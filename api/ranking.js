@@ -1,10 +1,16 @@
 let ranking = [];
 
-export default function handler(req, res) {
+export default async function handler(req, res) {
   if (req.method === 'POST') {
-    const nuevaPartida = req.body;
+    const buffers = [];
 
-    ranking.push(nuevaPartida);
+    for await (const chunk of req) {
+      buffers.push(chunk);
+    }
+
+    const data = JSON.parse(Buffer.concat(buffers).toString());
+
+    ranking.push(data);
     ranking.sort((a, b) => b.puntos - a.puntos);
     ranking = ranking.slice(0, 20);
 
