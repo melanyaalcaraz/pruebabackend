@@ -1,3 +1,4 @@
+
 let ranking = [];
 
 export default function handler(req, res) {
@@ -17,3 +18,4 @@ export default function handler(req, res) {
 
   return res.status(405).json({ error: 'Método no permitido' });
 }
+
